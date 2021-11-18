@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-
+const notesRouter = require('./notes/notes.router');
 const path = require("path");
 const notes = require(path.resolve("src/data/notes-data"));
 
@@ -25,9 +25,7 @@ app.get("/notes/:noteId", noteExists, (req, res, next) => {
   res.json({ data: foundNote });
 });
 
-app.get("/notes", (req, res) => {
-  res.json({ data: notes });
-});
+app.get("/notes", notesRouter);
 
 const hasText = (req, res, next) => {
   const { data: { text } = {} } = req.body;
